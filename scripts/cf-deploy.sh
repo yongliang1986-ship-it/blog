@@ -11,13 +11,13 @@ npx opennextjs-cloudflare build
 echo "==> applying D1 schema"
 npx wrangler d1 execute DB \
   --remote \
-  --database-id=13df76f6-15fc-447e-b1ea-3f6be09444c4 \
-  --file="${REPO_ROOT}/db/schema.sql"
+  --file="${REPO_ROOT}/db/schema.sql" \
+  -c "${CONFIG_PATH}"
 if [[ -f "${REPO_ROOT}/db/seed-template.sql" ]]; then
   echo "==> applying template defaults"
   npx wrangler d1 execute DB \
     --remote \
-    --database-id=13df76f6-15fc-447e-b1ea-3f6be09444c4 \
-    --file="${REPO_ROOT}/db/seed-template.sql"
+    --file="${REPO_ROOT}/db/seed-template.sql" \
+    -c "${CONFIG_PATH}"
 fi
 npx opennextjs-cloudflare deploy -c "${CONFIG_PATH}"
